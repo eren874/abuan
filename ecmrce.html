@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Shokippie - Your Trending E-Commerce Store</title>
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link href="ecmrce.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+  <nav class="container navbar navbar-expand-sm navbar-dark px-0" aria-label="Main navigation">
+    <a href="#" class="navbar-brand" id="nav-brand">Shokippie</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto" id="nav-links">
+        <li class="nav-item"><a class="nav-link active" href="#" data-page="home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-page="products">Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-page="cart">Cart <span id="cart-count" class="badge bg-light text-primary"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-page="checkout">Checkout</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-page="contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- Pages containers -->
+  <section id="page-home" class="page-section">
+    <div id="home-hero" role="banner" aria-label="Welcome to Shokippie">
+      <h1 tabindex="0">Welcome to Shokippie</h1>
+      <p>Your one-stop shop for trendy caps, bags, t-shirts, jeans, and shoes.</p>
+      <button class="btn btn-light btn-lg" id="shop-now-btn">Shop Now</button>
+    </div>
+  </section>
+
+  <section id="page-products" class="page-section d-none" aria-label="Product Listing">
+    <h2 tabindex="0" class="mb-4 text-center">Shop Our Products</h2>
+    <div class="row" id="products-list"></div>
+  </section>
+
+  <section id="page-cart" class="page-section d-none" aria-label="Shopping Cart">
+    <h2 tabindex="0" class="mb-4">Your Shopping Cart</h2>
+    <div class="table-responsive">
+      <table class="table align-middle" id="cart-items-table" aria-describedby="cart-summary">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col" class="d-none d-md-table-cell">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col" aria-label="Remove item"></th>
+          </tr>
+        </thead>
+        <tbody id="cart-items-body"></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="text-end">Total:</th>
+            <th id="cart-total" class="text-primary fw-bold" scope="row">$0.00</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary" id="continue-shopping-btn">Continue Shopping</button>
+      <button class="btn btn-success" id="proceed-checkout-btn" disabled>Proceed to Checkout</button>
+    </div>
+    <p id="empty-cart-msg" class="text-muted fst-italic mt-2 d-none" aria-live="polite">Your cart is empty.</p>
+  </section>
+
+  <section id="page-checkout" class="page-section d-none" aria-label="Checkout Form">
+    <h2 tabindex="0" class="mb-4">Checkout</h2>
+    <form id="checkout-form" novalidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="fullName" class="form-label">Full Name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="fullName" name="fullName" required minlength="2" />
+          <div class="invalid-feedback">Please enter your full name (min 2 characters).</div>
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" name="email" required />
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="col-12">
+          <label for="address" class="form-label">Shipping Address<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="address" name="address" required minlength="5" />
+          <div class="invalid-feedback">Please enter your shipping address (min 5 characters).</div>
+        </div>
+        <div class="col-md-6">
+          <label for="city" class="form-label">City<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="city" name="city" required minlength="2" />
+          <div class="invalid-feedback">Please enter a city name (min 2 characters).</div>
+        </div>
+        <div class="col-md-6">
+          <label for="zip" class="form-label">ZIP/Postal Code<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="zip" name="zip" required pattern="^[0-9A-Za-z\s\-]{3,10}$" />
+          <div class="invalid-feedback">Please enter a valid ZIP/postal code.</div>
+        </div>
+      </div>
+      <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <button type="submit" class="btn btn-success">Place Order</button>
+        <button type="button" class="btn btn-secondary" id="checkout-back-btn">Back to Cart</button>
+      </div>
+    </form>
+    <div id="order-success-msg" class="alert alert-success mt-4 d-none" role="alert" tabindex="0">
+      Thank you for your order! We have received your details and will process your shipment soon.
+    </div>
+  </section>
+
+  <section id="page-contact" class="page-section d-none" aria-label="Contact Us">
+    <h2 tabindex="0">Contact Us</h2>
+    <form id="contact-form" novalidate>
+      <div class="mb-3">
+        <label for="contactName" class="form-label">Your Name<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="contactName" name="contactName" required minlength="2" />
+        <div class="invalid-feedback">Please enter your name (min 2 characters).</div>
+      </div>
+      <div class="mb-3">
+        <label for="contactEmail" class="form-label">Your Email<span class="text-danger">*</span></label>
+        <input type="email" class="form-control" id="contactEmail" name="contactEmail" required />
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+      <div class="mb-3">
+        <label for="contactMessage" class="form-label">Message<span class="text-danger">*</span></label>
+        <textarea class="form-control" id="contactMessage" name="contactMessage" rows="4" required minlength="5"></textarea>
+        <div class="invalid-feedback">Please enter a message (min 5 characters).</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+      <div id="contact-success-msg" class="alert alert-success mt-3 d-none" role="alert" tabindex="0">
+        Your message has been sent! We'll get back to you soon.
+      </div>
+    </form>
+    <div class="mt-4">
+      <h5>Shokippie Headquarters</h5>
+      <address>
+        123 Asawa ni Marie Avenue,<br />
+        Shopville, Binalonan 45678<br />
+        Phone: 0992 bahala ka na sa walo<br />
+        Email: support@shokippie.com
+      </address>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Shokippie. All Rights Reserved.
+</footer>
+
+<!-- Bootstrap 5 JS Bundle CDN including Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="ecmrce.js"></script>
+</body>
+</html>
